@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
   Box,
   Button,
@@ -51,9 +51,18 @@ const FormDemo = () => {
             }),
           })}
           initialValues={initialValues}
-          onSubmit={() => {}}
+          onSubmit={(values, formikHelpers) => {
+            return new Promise((res) => {
+              setTimeout(() => {
+                console.log(values);
+                console.log(formikHelpers);
+                console.log("-------");
+                res();
+              }, 5000);
+            });
+          }}
         >
-          {({ values, errors }) => (
+          {({ values, errors, isSubmitting, isValidating }) => (
             <Form>
               <Box mb={2}>
                 <FormGroup>
@@ -103,8 +112,8 @@ const FormDemo = () => {
                     name="commentAboutInvestmentRisk"
                     as={TextField}
                     multiline
-                    rows={3}
-                    rowsMax={10}
+                    rowsmin={3}
+                    maxRows={10}
                   />
                   <ErrorMessage name="commentAboutInvestmentRisk" />
                 </FormGroup>
@@ -135,7 +144,13 @@ const FormDemo = () => {
                 </FormGroup>
               </Box>
               <Box mb={2}>
-                <Button variant="contained">Submit</Button>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={isSubmitting || isValidating}
+                >
+                  Submit
+                </Button>
               </Box>
               <pre>{JSON.stringify(errors, null, 4)}</pre>
               <pre>{JSON.stringify(values, null, 4)}</pre>
