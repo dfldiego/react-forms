@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Field, Formik, Form, useField } from "formik";
+import { boolean, number, object, string } from "yup";
 /* import InvestmentDetails from "./InvestmentDetails"; */
 
 // valores iniciales (fuera del componente)
@@ -29,8 +30,17 @@ const FormDemo = () => {
       <CardContent>
         <Typography variant="h4">New Account</Typography>
 
-        <Formik initialValues={initialValues} onSubmit={() => {}}>
-          {({ values }) => (
+        <Formik
+          validationSchema={object({
+            fullName: string().required().min(2).max(100),
+            initialInvestment: number().required().min(2),
+            dependents: number().required().min(0).max(5),
+            acceptedTermsAndConditions: boolean().oneOf([true]),
+          })}
+          initialValues={initialValues}
+          onSubmit={() => {}}
+        >
+          {({ values, errors }) => (
             <Form>
               <Box mb={2}>
                 <FormGroup>
@@ -97,6 +107,7 @@ const FormDemo = () => {
                   />
                 </FormGroup>
               </Box>
+              <pre>{JSON.stringify(errors, null, 4)}</pre>
               <pre>{JSON.stringify(values, null, 4)}</pre>
             </Form>
           )}
