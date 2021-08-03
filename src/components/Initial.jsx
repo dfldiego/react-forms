@@ -7,6 +7,8 @@ const Initial = () => {
       <Link to="/form-demo">
         Demo - Formulario con Formik - Material ui - Yup
       </Link>
+      <br />
+      <Link to="/upload-image">Upload Image - Formik</Link>
     </Fragment>
   );
 };
