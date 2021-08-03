@@ -7,6 +7,7 @@ const initialValues = {
 };
 
 const AppUploadingImage = () => {
+  const baseURL = "http://localhost:3000/image";
   return (
     <Fragment>
       <Card>
@@ -15,6 +16,16 @@ const AppUploadingImage = () => {
             initialValues={initialValues}
             onSubmit={(values) => {
               console.log(values);
+              let data = new FormData();
+              data.append("photo1", values.photo1);
+              return fetch(baseURL, {
+                method: "post",
+                headers: new Headers({ Accept: "application/json" }),
+                body: data,
+              })
+                .then((response) => response.json())
+                .then((data) => console.log(data))
+                .catch((err) => console.log(err));
             }}
           >
             {(formProps) => (
@@ -22,7 +33,9 @@ const AppUploadingImage = () => {
                 <Input
                   type="file"
                   name="photo1"
-                  onChange={(e) => formProps.setFieldValue("photo1", e.target)}
+                  onChange={(e) =>
+                    formProps.setFieldValue("photo1", e.target.files[0])
+                  }
                 />
                 <Button type="submit">Submit</Button>
               </Form>
