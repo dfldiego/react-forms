@@ -22,7 +22,7 @@ const AppUploadingImage = () => {
                 <Input
                   type="file"
                   name="photo1"
-                  onChange={formProps.handleChange("photo1")}
+                  onChange={(e) => formProps.setFieldValue("photo1", e.target)}
                 />
                 <Button type="submit">Submit</Button>
               </Form>
