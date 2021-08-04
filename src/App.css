@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+/*EJEMPLO 4 FORMULARIO CON FORMIK*/
+.StyledSelect {
+  color: var(--blue);
+}
+.StyledErrorMessage {
+  font-size: 12px;
+  color: var(--red-600);
+  width: 400px;
+  margin-top: 0.25rem;
+}
+.StyledLabel {
+  margin-top: 1rem;
+}
